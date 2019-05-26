@@ -3,17 +3,21 @@ import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 export default class Home extends React.Component {
   render() {
+    const { navigate } = this.props.navigation;
+
     return (
       <View style={styles.container}>
-        <View style={styles.spacer}></View>
+        <View style={styles.spacer} />
         <View style={styles.header}>
           <Text style={styles.title}>Welcome to Jaam!</Text>
         </View>
         <View style={styles.content}>
-          <Text style={styles.description}>Let's start by connecting your Spotify account!</Text>
+          <Text style={styles.description}>
+            Let's start by connecting your Spotify account!
+          </Text>
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity onPress={console.log}>
+          <TouchableOpacity onPress={() => navigate("Playlists")}>
             <Text style={styles.spotifyButton}>Connect Spotify</Text>
           </TouchableOpacity>
         </View>
@@ -32,14 +36,14 @@ const styles = StyleSheet.create({
     flex: 4
   },
   header: {
-    flex: 2,
+    flex: 2
   },
   title: {
     fontSize: 28,
     fontWeight: "bold"
   },
   content: {
-    flex: 8,
+    flex: 8
   },
   description: {
     fontSize: 18,
