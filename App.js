@@ -1,20 +1,28 @@
-import { createStackNavigator, createAppContainer } from "react-navigation";
-import HomeScreen from "./screens/Home";
+import {
+  createStackNavigator,
+  createAppContainer,
+  createSwitchNavigator
+} from "react-navigation";
+
+import SigninScreen from "./screens/Signin";
 import PlaylistsScreen from "./screens/Playlists";
+import LoadingScreen from "./screens/Loading";
 
-const MainNavigator = createStackNavigator(
-  {
-    Home: { screen: HomeScreen },
-    Playlists: {screen: PlaylistsScreen }
-  },
-  {
-    headerMode: "none",
-    navigationOptions: {
-      headerVisible: false
+const AppStack = createStackNavigator({ Playlists: PlaylistsScreen });
+
+export default createAppContainer(
+  createSwitchNavigator(
+    {
+      App: AppStack,
+      Loading: LoadingScreen,
+      Signin: SigninScreen
+    },
+    {
+      initialRouteName: "Loading",
+      headerMode: "none",
+      navigationOptions: {
+        headerVisible: false
+      }
     }
-  }
+  )
 );
-
-const App = createAppContainer(MainNavigator);
-
-export default App;

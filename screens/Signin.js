@@ -1,7 +1,19 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import { getTokens } from "../auth/getTokens";
 
-export default class Home extends React.Component {
+export default class Signin extends React.Component {
+  state = { isSignedIn: false };
+  
+  async componentDidMount() {
+    const tokenExpirationTime = await getUserData("expirationTime");
+    if (!tokenExpirationTime || new Date().getTime() > tokenExpirationTime) {
+      await refreshTokens();
+    } else {
+      
+    }
+  }
+
   render() {
     const { navigate } = this.props.navigation;
 
