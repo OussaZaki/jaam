@@ -1,7 +1,7 @@
 import React from "react";
 import { ActivityIndicator, StatusBar, View, AsyncStorage } from "react-native";
 
-import { refreshTokens } from "../auth/refreshToken";
+import { refreshTokens } from "../auth/refreshTokens";
 
 export default class LoadingScreen extends React.Component {
   constructor(props) {
