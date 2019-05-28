@@ -1,5 +1,7 @@
 import React from "react";
-import { ActivityIndicator, StatusBar, View } from "react-native";
+import { ActivityIndicator, StatusBar, View, AsyncStorage } from "react-native";
+
+import { refreshTokens } from "../auth/refreshToken";
 
 export default class LoadingScreen extends React.Component {
   constructor(props) {
@@ -8,7 +10,7 @@ export default class LoadingScreen extends React.Component {
   }
 
   _bootstrapAsync = async () => {
-    const tokenExpirationTime = await getUserData("expirationTime");
+    const tokenExpirationTime = await AsyncStorage.getItem("expirationTime");
     if (!tokenExpirationTime || new Date().getTime() > tokenExpirationTime) {
       this.props.navigation.navigate("Signin");
       await refreshTokens();

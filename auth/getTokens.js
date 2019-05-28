@@ -1,4 +1,6 @@
 import { encode as btoa } from "base-64";
+import { AsyncStorage } from "react-native";
+
 import { getCredentials } from "./getCredentials";
 import { getAuthorization } from "./getAuthorization";
 
@@ -30,9 +32,9 @@ export const getTokens = async () => {
     } = responseJson;
 
     const expirationTime = new Date().getTime() + expiresIn * 1000;
-    await setUserData("accessToken", accessToken);
-    await setUserData("refreshToken", refreshToken);
-    await setUserData("expirationTime", expirationTime);
+    await AsyncStorage.setItem("accessToken", accessToken);
+    await AsyncStorage.setItem("refreshToken", refreshToken);
+    await AsyncStorage.setItem("expirationTime", expirationTime);
   } catch (err) {
     console.error(err);
   }

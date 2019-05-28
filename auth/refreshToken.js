@@ -1,3 +1,5 @@
+import { AsyncStorage } from "react-native";
+
 import { getCredentials } from "./getCredentials";
 import { getTokens } from "./getTokens";
 
@@ -7,7 +9,7 @@ export const refreshTokens = async () => {
     const credsB64 = btoa(
       `${credentials.clientId}:${credentials.clientSecret}`
     );
-    const refreshToken = await getUserData("refreshToken");
+    const refreshToken = await AsyncStorage.getItem("refreshToken");
 
     const response = await fetch("https://accounts.spotify.com/api/token", {
       method: "POST",
@@ -29,11 +31,11 @@ export const refreshTokens = async () => {
       } = responseJson;
 
       const expirationTime = new Date().getTime() + expiresIn * 1000;
-      await setUserData("accessToken", newAccessToken);
+      await AsyncStorage.setItem("accessToken", newAccessToken);
       if (newRefreshToken) {
-        await setUserData("refreshToken", newRefreshToken);
+        await AsyncStorage.setItem("refreshToken", newRefreshToken);
       }
-      await setUserData("expirationTime", expirationTime);
+      await AsyncStorage.setItem("expirationTime", expirationTime);
     }
   } catch (err) {
     console.error(err);

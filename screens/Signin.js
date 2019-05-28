@@ -1,16 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
-import { getTokens } from "../auth/getTokens";
+import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from "react-native";
+import { refreshTokens } from "../auth/refreshTokens";
 
 export default class Signin extends React.Component {
   state = { isSignedIn: false };
   
   async componentDidMount() {
-    const tokenExpirationTime = await getUserData("expirationTime");
+    const tokenExpirationTime = await AsyncStorage.getItem("expirationTime");
     if (!tokenExpirationTime || new Date().getTime() > tokenExpirationTime) {
       await refreshTokens();
-    } else {
-      
     }
   }
 
