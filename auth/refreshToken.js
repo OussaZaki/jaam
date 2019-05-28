@@ -1,3 +1,4 @@
+import { encode as btoa } from "base-64";
 import { AsyncStorage } from "react-native";
 
 import { getCredentials } from "./getCredentials";
