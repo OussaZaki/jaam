@@ -1,0 +1,54 @@
+{
+  "extends": [
+    "tslint:latest",
+    "tslint-config-prettier",
+    "tslint-eslint-rules",
+    "no-enum-tslint-rule"
+  ],
+  "rules": {
+    "array-type": false,
+    "curly": [
+      true,
+      "ignore-same-line"
+    ],
+    "no-internal-module": true,
+    "no-namespace": true,
+    "no-enum": true,
+    "ordered-imports": false,
+    "object-literal-sort-keys": false,
+    "jsdoc-format": false,
+    "no-angle-bracket-type-assertion": false,
+    "no-submodule-imports": false,
+    "no-implicit-dependencies": false,
+    "no-shadowed-variable": false,
+    "no-empty": false,
+    "no-unused-variable": [
+      true,
+      {
+        "ignore-pattern": "^_"
+      }
+    ],
+    "prefer-object-spread": false,
+    "forin": false,
+    "no-empty-interface": false,
+    "indent": [
+      true,
+      "spaces",
+      2
+    ],
+    "interface-name": false,
+    "no-object-literal-type-assertion": false,
+    "max-classes-per-file": false,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "allow-leading-underscore",
+      "allow-trailing-underscore"
+    ]
+  },
+  "linterOptions": {
+    "exclude": [
+      "**/*.js"
+    ]
+  }
+}

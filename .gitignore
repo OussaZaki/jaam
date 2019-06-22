@@ -1,8 +1,17 @@
-node_modules/**/*
-.expo/*
-npm-debug.*
-*.jks
-*.p12
-*.key
-*.mobileprovision
-auth/secrets.js
+# OSX
+#
+.DS_Store
+
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+junit.xml
+test-report.xml
+
+
+trash
+
+\.vscode/
+\.vs/

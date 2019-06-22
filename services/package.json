@@ -1,0 +1,32 @@
+{
+  "name": "jaam-platform",
+  "description": "An example TypeScript app running on Google App Engine.",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Apache Version 2.0",
+  "author": "Oussama Zaki <zaki.oussama@gmail.com>",
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "scripts": {
+    "prepare": "yarn build",
+    "pretest": "yarn build",
+    "test": "repo-tools test app -- index.js",
+    "posttest": "yarn lint",
+    "lint": "tslint",
+    "start": "node ./dist/index.js",
+    "build": "tsc",
+    "deploy": "gcloud app deploy",
+    "gcp-build": "yarn build"
+  },
+  "dependencies": {
+    "@google-cloud/debug-agent": "^4.0.0",
+    "express": "^4.17.1",
+    "typescript": "^3.5.2"
+  },
+  "devDependencies": {
+    "@google-cloud/nodejs-repo-tools": "^3.3.0",
+    "@types/express": "^4.17.0",
+    "tslint": "^5.18.0"
+  }
+}

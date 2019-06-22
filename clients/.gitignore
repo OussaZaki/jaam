@@ -1,0 +1,7 @@
+.expo/*
+npm-debug.*
+*.jks
+*.p12
+*.key
+*.mobileprovision
+auth/secrets.js
