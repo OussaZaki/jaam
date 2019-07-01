@@ -1,5 +1,7 @@
-export const fetchPlaylists = async (userId, accessToken) => {
-  let response = await fetch(`https://api.spotify.com/v1/users/${userId}/playlists`, {
+import { AppError, ERRORS } from "../errors";
+
+export const getUser = async (accessToken) => {
+  let response = await fetch('https://api.spotify.com/v1/me', {
     method: 'GET',
     headers: {
       'Authorization': 'Bearer ' + accessToken
@@ -10,5 +12,5 @@ export const fetchPlaylists = async (userId, accessToken) => {
     throw new AppError(ERRORS.SESSION_EXPIRED);
   }
 
-  return responseJson.items;
+  return responseJson;
 }

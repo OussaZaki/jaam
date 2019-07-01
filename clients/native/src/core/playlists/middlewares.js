@@ -1,9 +1,11 @@
 import { getType } from "typesafe-actions";
 import { AsyncStorage } from "react-native";
 
-import { getPlaylists } from "../../services/getPlaylists";
-import { getUser } from "../../services/getUser";
+import { fetchPlaylists } from "./playlists.service";
 import { ERRORS } from "../errors";
+import { revokeToken } from "../user/actions";
+import { getUserId, getAccessToken } from "../user/selectors";
+
 import * as actions from "./actions";
 
 const playlistsMiddlewares = ({ dispatch, getState }) => (next) => async (action) => {
@@ -11,17 +13,16 @@ const playlistsMiddlewares = ({ dispatch, getState }) => (next) => async (action
 
   if (action.type == getType(actions.fetchPlaylists.request)) {
     try {
-      const accessToken = await AsyncStorage.getItem("accessToken");
-      const user = await getUser(accessToken);
-      const playlists = await getPlaylists(user.id, accessToken);
+      const accessToken = getAccessToken(getState());
+      const userId = getUserId(getState());
+      const playlists = await fetchPlaylists(userId, accessToken);
 
       dispatch(actions.fetchPlaylists.success(playlists));
     } catch (error) {
-      console.log(error);
       if (error.type && error.type === ERRORS.SESSION_EXPIRED) {
-        await AsyncStorage.removeItem("accessToken");
-        dispatch(actions.fetchPlaylists.failure(error));
+        dispatch(revokeToken());
       }
+      dispatch(actions.fetchPlaylists.failure(error));
     }
   }
 };

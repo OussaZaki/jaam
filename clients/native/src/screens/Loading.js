@@ -1,20 +1,24 @@
 import React from "react";
-import { ActivityIndicator, StatusBar, View, AsyncStorage } from "react-native";
+import { connect } from 'react-redux';
+import { ActivityIndicator, View } from "react-native";
+import { getAccessToken, getTokenExpirationTime } from "../core/user/selectors";
 
-export default class LoadingScreen extends React.Component {
+export class Loading extends React.Component {
   constructor(props) {
     super(props);
     this._bootstrapAsync();
   }
 
   _bootstrapAsync = async () => {
-
-    const token = await AsyncStorage.getItem("accessToken");
-    if (!token) {
+    if (!this.props.accessToken) {
       this.props.navigation.navigate("Signin");
     } else {
-      this.setState({ accessTokenAvailable: true });
-      this.props.navigation.navigate("Playlists");
+      if (!tokenExpirationTime || new Date().getTime() > tokenExpirationTime) {
+        // TODO: Refresh token here.
+        this.props.navigation.navigate("Signin");
+      } else {
+        this.props.navigation.navigate("Playlists");
+      }
     }
   };
 
@@ -22,8 +26,19 @@ export default class LoadingScreen extends React.Component {
     return (
       <View>
         <ActivityIndicator />
-        <StatusBar barStyle="default" />
       </View>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  accessToken: getAccessToken(state),
+  tokenExpirationTime: getTokenExpirationTime(state)
+});
+
+const mapDispatchToProps = {};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Loading);

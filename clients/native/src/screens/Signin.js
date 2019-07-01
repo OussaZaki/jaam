@@ -1,24 +1,14 @@
 import React from "react";
-import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from "react-native";
-import { login } from "../core/auth/login.expo";
+import { connect } from 'react-redux';
+import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from "react-native";
 
-export default class Signin extends React.Component {
-  state = {
-    isSignedIn: false,
-    isLoading: false
-  };
+import { login } from "../core/user/actions";
+import { getIsLoading, getAccessToken } from "../core/user/selectors";
 
-  _login = async () => {
-    this.setState({ isLoading: true });
-    try {
-      const token = await login();
-      await AsyncStorage.setItem("accessToken", token);
-
-      this.setState({ isLoading: false });
-      this.props.navigation.navigate("Playlists")
-    } catch (error) {
-      console.log(error);
-      this.setState({ isLoading: false });
+export class Signin extends React.Component {
+  componentDidUpdate(prevProps) {
+    if (this.props.accessToken !== prevProps.accessToken) {
+      this.props.navigation.navigate("Playlists");
     }
   }
 
@@ -35,8 +25,12 @@ export default class Signin extends React.Component {
           </Text>
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity onPress={this._login}>
-            <Text style={styles.spotifyButton}>Connect Spotify</Text>
+          <TouchableOpacity onPress={this.props.login}>
+            {
+              this.props.isLoading
+                ? <ActivityIndicator size="large" color="#1DB954" />
+                : <Text style={styles.spotifyButton}>Connect Spotify</Text>
+            }
           </TouchableOpacity>
         </View>
       </View>
@@ -82,3 +76,17 @@ const styles = StyleSheet.create({
     fontWeight: "500"
   }
 });
+
+const mapStateToProps = state => ({
+  isLoading: getIsLoading(state),
+  accessToken: getAccessToken(state)
+});
+
+const mapDispatchToProps = {
+  login: login.request
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Signin);
