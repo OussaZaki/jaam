@@ -15,13 +15,23 @@
     "posttest": "yarn lint",
     "lint": "tslint",
     "start": "node ./dist/index.js",
-    "build": "tsc",
+    "tsc": "tsc",
+    "static": "cp -r ./public ./dist/public/",
+    "build": "yarn tsc && yarn static",
     "deploy": "gcloud app deploy",
     "gcp-build": "yarn build"
   },
   "dependencies": {
     "@google-cloud/debug-agent": "^4.0.0",
+    "@types/cookie-parser": "^1.4.1",
+    "@types/cors": "^2.8.5",
+    "@types/dotenv": "^6.1.1",
+    "cookie-parser": "^1.4.4",
+    "cors": "^2.8.5",
+    "dotenv": "^8.0.0",
     "express": "^4.17.1",
+    "querystring": "^0.2.0",
+    "request": "^2.88.0",
     "typescript": "^3.5.2"
   },
   "devDependencies": {

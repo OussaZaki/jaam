@@ -1,20 +1,28 @@
 import React from "react";
 import { StyleSheet, Text, View, TouchableOpacity, AsyncStorage } from "react-native";
-import { refreshTokens } from "../auth/refreshTokens";
+import { login } from "../core/auth/login.expo";
 
 export default class Signin extends React.Component {
-  state = { isSignedIn: false };
-  
-  async componentDidMount() {
-    const tokenExpirationTime = await AsyncStorage.getItem("expirationTime");
-    if (!tokenExpirationTime || new Date().getTime() > tokenExpirationTime) {
-      await refreshTokens();
+  state = {
+    isSignedIn: false,
+    isLoading: false
+  };
+
+  _login = async () => {
+    this.setState({ isLoading: true });
+    try {
+      const token = await login();
+      await AsyncStorage.setItem("accessToken", token);
+
+      this.setState({ isLoading: false });
+      this.props.navigation.navigate("Playlists")
+    } catch (error) {
+      console.log(error);
+      this.setState({ isLoading: false });
     }
   }
 
   render() {
-    const { navigate } = this.props.navigation;
-
     return (
       <View style={styles.container}>
         <View style={styles.spacer} />
@@ -27,7 +35,7 @@ export default class Signin extends React.Component {
           </Text>
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity onPress={() => navigate("Playlists")}>
+          <TouchableOpacity onPress={this._login}>
             <Text style={styles.spotifyButton}>Connect Spotify</Text>
           </TouchableOpacity>
         </View>
