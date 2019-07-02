@@ -1,0 +1,17 @@
+{
+  "name": "jaam-node",
+  "version": "0.1.0",
+  "description": "pure node to test jaam logic",
+  "type": "module",
+  "main": "index.mjs",
+  "license": "MIT",
+  "scripts": {
+    "start:debug": "nodemon --inspect-brk --experimental-modules"
+  },
+  "dependencies": {
+    "ramda": "^0.26.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
