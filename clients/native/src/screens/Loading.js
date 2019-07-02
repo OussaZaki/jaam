@@ -13,7 +13,7 @@ export class Loading extends React.Component {
     if (!this.props.accessToken) {
       this.props.navigation.navigate("Signin");
     } else {
-      if (!tokenExpirationTime || new Date().getTime() > tokenExpirationTime) {
+      if (!this.props.tokenExpirationTime || new Date().getTime() > this.props.tokenExpirationTime) {
         // TODO: Refresh token here.
         this.props.navigation.navigate("Signin");
       } else {
