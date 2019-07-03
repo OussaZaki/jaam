@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
 import * as selectors from "../core/playlists/selectors";
 import { GameTimer } from "../components/gameTimer";
@@ -18,11 +18,14 @@ class Quiz extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.visual}>
+          <TouchableOpacity onPress={this._finishCallback}>
+            <Text>Back</Text>
+          </TouchableOpacity>
           <Text>Here goes the music visualizations!!</Text>
         </View>
 
         <View style={styles.timer}>
-          <GameTimer time={2} onFinish={this._finishCallback}/>
+          <GameTimer time={2} onFinish={this._finishCallback} />
         </View>
 
         <View style={styles.question}>
