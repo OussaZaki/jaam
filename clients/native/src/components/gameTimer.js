@@ -72,6 +72,10 @@ export class GameTimer extends React.Component {
     this.startTimer();
   }
 
+  componentWillUnmount = () => {
+    this.stopTimer();
+  }
+
   render() {
     const {
       seconds,
