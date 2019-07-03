@@ -23,7 +23,6 @@ export const login = async () => {
       encodeURIComponent(redirectUrl)
   });
 
-  debugger;
   return {
     token: result.params.access_token,
     expirationTime: _getExpirationTime(result.params.expires_in)
