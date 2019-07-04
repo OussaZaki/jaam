@@ -8,6 +8,7 @@ import SigninScreen from "./screens/Signin";
 import PlaylistsScreen from "./screens/Playlists";
 import LoadingScreen from "./screens/Loading";
 import QuizScreen from "./screens/Quiz";
+import ScoreScreen from "./screens/Score";
 
 const AppNavigator = createAppContainer(
   createSwitchNavigator(
@@ -15,7 +16,8 @@ const AppNavigator = createAppContainer(
       ['Playlists']: PlaylistsScreen,
       ['Loading']: LoadingScreen,
       ['Signin']: SigninScreen,
-      ['Quiz']: QuizScreen
+      ['Quiz']: QuizScreen,
+      ['Score']: ScoreScreen
     },
     {
       initialRouteName: "Loading",

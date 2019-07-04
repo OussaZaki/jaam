@@ -54,14 +54,15 @@ const QUESTION_LEVEL = {
   ]
 };
 
-function* quizGenerator({
+export function* quizGenerator({
   tracks,
   trackOptions,
   albumOptions,
-  artistOptions,
-  questionOrder
+  artistOptions
 }) {
   let level = 0;
+  const questionOrder = randomOrderList(tracks.length);
+
   for (const index of questionOrder) {
     const question = pickRandomly(QUESTION_LEVEL[level], 1);
     let options, answer;
@@ -95,14 +96,19 @@ function* quizGenerator({
         break;
     }
 
-    console.log(question)
-    console.log(`The right answer is: ${answer}`)
-    options.forEach((opt, i) => console.log(`${i + 1}- ${opt}`));
-    var levelUp = yield true
-    if (levelUp) {
-      level++;
-    }
-    console.log("\n")
+    // console.log(question)
+    // console.log(`The right answer is: ${answer}`)
+    // options.forEach((opt, i) => console.log(`${i + 1}- ${opt}`));
+    // console.log("\n")
+
+    var levelUp = yield {
+      question,
+      answer,
+      options,
+      level
+    };
+
+    if (levelUp) level++;
   }
 }
 

@@ -17,7 +17,7 @@ class Playlists extends React.Component {
 
   _onSelect = (playlistId) => {
     this.props.selectPlaylist(playlistId);
-    this.props.navigation.navigate("Quiz")
+    this.props.navigation.navigate("Quiz");
   };
 
   render() {

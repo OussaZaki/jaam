@@ -1,3 +1,5 @@
+import { shuffleArray } from "./shuffleArray";
+
 const pickRandomly = (array, n, include) => {
   let result = new Array(n + 1),
     len = array.length,
@@ -21,7 +23,7 @@ const pickRandomly = (array, n, include) => {
   if (result.length === 2)
     return result[0];
 
-  return shuffle(result);
+  return shuffleArray(result);
 };
 
 export default pickRandomly;

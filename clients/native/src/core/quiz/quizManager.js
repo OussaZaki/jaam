@@ -1,5 +1,5 @@
 import { QUESTION_LEVEL, QUESTION_TYPES } from "./questionTypes";
-import { pickRandomly } from "./helpers";
+import { pickRandomly, randomOrderList } from "./helpers";
 
 export function* quizGenerator({
   tracks,
@@ -43,13 +43,15 @@ export function* quizGenerator({
         break;
     }
 
-    console.log(question)
-    console.log(`The right answer is: ${answer}`)
-    options.forEach((opt, i) => console.log(`${i + 1}- ${opt}`));
-    var levelUp = yield true
-    if (levelUp) {
-      level++;
-    }
-    console.log("\n")
+    var levelUp = yield {
+      question,
+      answer,
+      options,
+      level
+    };
+
+    if (levelUp) level++;
   }
+
+  return;
 };
