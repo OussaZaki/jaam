@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { Router } from './routes';
 import store from './core/store';
 
-import { Image, View } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 import { AppLoading, SplashScreen } from 'expo';
 import { Asset } from 'expo-asset';
 
@@ -48,7 +48,7 @@ export default class App extends React.Component {
       return (
         <View style={{ flex: 1 }}>
           <ImageBackground
-            source={require('../../assets/jaam-splash.png')}
+            source={require('../assets/jaam-splash.png')}
             style={{ width: '100%', height: '100%' }}
             onLoad={this._cacheResourcesAsync} />
         </View>
