@@ -13,9 +13,9 @@ import ScoreScreen from "./screens/Score";
 const AppNavigator = createAppContainer(
   createSwitchNavigator(
     {
-      ['Playlists']: PlaylistsScreen,
       ['Loading']: LoadingScreen,
       ['Signin']: SigninScreen,
+      ['Playlists']: PlaylistsScreen,
       ['Quiz']: QuizScreen,
       ['Score']: ScoreScreen
     },

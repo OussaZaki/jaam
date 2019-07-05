@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 
-export default class Playlists extends React.Component {
+export default class Score extends React.Component {
   _onBack = () => {
     this.props.navigation.navigate("Playlists");
   }

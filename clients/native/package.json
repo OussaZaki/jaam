@@ -7,14 +7,12 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@eva-design/eva": "^1.0.1",
-    "base-64": "^0.1.0",
     "expo": "^32.0.0",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
-    "react-native-loader": "^1.2.1",
+    "react-native-progress": "^3.6.0",
     "react-native-screens": "^1.0.0-alpha.22",
-    "react-native-ui-kitten": "^4.0.5",
+    "react-native-waveview": "^1.1.0",
     "react-navigation": "^3.11.0",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",

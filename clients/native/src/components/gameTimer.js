@@ -4,6 +4,8 @@ import {
   Text,
   View
 } from 'react-native';
+import * as Progress from 'react-native-progress';
+
 
 export class GameTimer extends React.Component {
   state = {
@@ -52,15 +54,17 @@ export class GameTimer extends React.Component {
   };
 
   formatTime = () => {
-    const { timerTime } = this.state;
+    const { timerTime, timerStart } = this.state;
     let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
     let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
     let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
+    const progress = timerTime / timerStart;
 
     return {
       seconds,
       minutes,
-      hours
+      hours,
+      progress
     }
   }
 
@@ -80,12 +84,22 @@ export class GameTimer extends React.Component {
     const {
       seconds,
       minutes,
-      hours
+      hours,
+      progress
     } = this.formatTime();
 
     return (
       <View style={styles.timer}>
-        <Text>{hours} : {minutes} : {seconds}</Text>
+        <Progress.Bar
+          progress={progress}
+          width={null}
+          borderRadius={0}
+          borderWidth={0}
+          useNativeDriver={true}
+          color={"#FFBE00"}
+          unfilledColor={"#505050"}
+          />
+        {/* <Text>{hours} : {minutes} : {seconds}</Text> */}
       </View>
     );
   }
@@ -94,6 +108,6 @@ export class GameTimer extends React.Component {
 const styles = StyleSheet.create({
   timer: {
     justifyContent: 'center',
-    alignItems: 'center'
+    alignSelf: 'stretch'
   }
 });
