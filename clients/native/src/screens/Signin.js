@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator, ImageBackground } from "react-native";
 
 import { login } from "../core/user/actions";
 import { getIsLoading, getAccessToken } from "../core/user/selectors";
@@ -14,26 +14,28 @@ export class Signin extends React.Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <View style={styles.spacer} />
-        <View style={styles.header}>
-          <Text style={styles.title}>Welcome to Jaam!</Text>
-        </View>
-        <View style={styles.content}>
-          <Text style={styles.description}>
-            Let's start by connecting your Spotify account!
+      <ImageBackground source={require('../../assets/jaam-splash.png')} style={{ width: '100%', height: '100%' }}>
+        <View style={styles.container}>
+          <View style={styles.spacer} />
+          <View style={styles.header}>
+            <Text style={styles.title}>Welcome to Jaam!</Text>
+          </View>
+          <View style={styles.content}>
+            <Text style={styles.description}>
+              Let's start by connecting your Spotify account!
           </Text>
+          </View>
+          <View style={styles.footer}>
+            <TouchableOpacity onPress={this.props.login}>
+              {
+                this.props.isLoading
+                  ? <ActivityIndicator size="large" color="#1DB954" />
+                  : <Text style={styles.spotifyButton}>Connect Spotify</Text>
+              }
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.footer}>
-          <TouchableOpacity onPress={this.props.login}>
-            {
-              this.props.isLoading
-                ? <ActivityIndicator size="large" color="#1DB954" />
-                : <Text style={styles.spotifyButton}>Connect Spotify</Text>
-            }
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ImageBackground>
     );
   }
 }
@@ -51,15 +53,23 @@ const styles = StyleSheet.create({
     flex: 2
   },
   title: {
-    fontSize: 28,
-    fontWeight: "bold"
+    color: "white",
+    fontSize: 32,
+    fontWeight: "600",
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10
   },
   content: {
     flex: 8
   },
   description: {
-    fontSize: 18,
-    textAlign: "center"
+    color: "white",
+    fontSize: 20,
+    marginHorizontal: 50,
+    textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    textAlign: "center",
+    fontWeight: "500"
   },
   footer: {
     flex: 4
@@ -73,7 +83,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textTransform: "uppercase",
     letterSpacing: 2,
-    fontWeight: "500"
+    fontWeight: "600"
   }
 });
 
