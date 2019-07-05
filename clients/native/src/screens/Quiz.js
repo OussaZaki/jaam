@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { getSelectedPlaylist } from "../core/playlists/selectors";
 import { quizState } from "../core/quiz/selectors";
@@ -87,8 +88,9 @@ class Quiz extends React.Component {
       <View style={styles.container}>
         <View style={styles.visual}>
           <View style={styles.header}>
-            <Text style={styles.score} onPress={this._onBack}>{"<-"}</Text>
-            <Text style={styles.score}>Score: {this.state.score}</Text>
+            <MaterialCommunityIcons name="arrow-left" size={24} onPress={this._onBack} />
+            <Text style={styles.playlistTitle} numberOfLines={1}>{this.props.playlist.name}</Text>
+            <MaterialCommunityIcons name="pause" size={24} onPress={this._onPause} />
           </View>
           <Text style={styles.playlistTitle}>{this.props.playlist.name}</Text>
           <AudioVisual animated={!this.state.isLoading} />
@@ -132,8 +134,8 @@ const styles = StyleSheet.create({
     height: "30%",
   },
   header: {
-    marginHorizontal: 10,
-    marginTop: 40,
+    marginHorizontal: 16,
+    marginTop: 60,
     display: 'flex',
     flexDirection: 'row',
     alignSelf: 'stretch',
@@ -144,7 +146,10 @@ const styles = StyleSheet.create({
     fontWeight: "500"
   },
   playlistTitle: {
-    marginTop: 20,
+    fontSize: 20,
+    fontWeight: "600",
+    width: "70%",
+  },
     fontSize: 20,
     fontWeight: "600",
   },
