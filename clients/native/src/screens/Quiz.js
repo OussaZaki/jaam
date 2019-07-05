@@ -137,6 +137,8 @@ class Quiz extends React.Component {
   }
 
   render() {
+    const quizTime = this.props.navigation.getParam('quizTime', 0.2);
+
     return (
       <View style={styles.container}>
         <View style={styles.visual}>
@@ -157,7 +159,7 @@ class Quiz extends React.Component {
           <View style={styles.questionBar}></View>
         </View>
         <View style={styles.timer}>
-          {!this.state.isLoading && <GameTimer time={0.2} onFinish={() => this._gameOver(true)} />}
+          {!this.state.isLoading && <GameTimer time={quizTime} onFinish={this._gameOver} />}
         </View>
 
         <View style={styles.optionsContainer}>
@@ -183,8 +185,8 @@ const styles = StyleSheet.create({
     height: "30%",
   },
   header: {
-    marginHorizontal: 16,
-    marginTop: 60,
+    marginHorizontal: "2%",
+    marginTop: "8%",
     display: 'flex',
     flexDirection: 'row',
     alignSelf: 'stretch',
@@ -196,11 +198,11 @@ const styles = StyleSheet.create({
     width: "70%",
   },
   quizStatus: {
-    color: "#fff",
-    marginTop: 24,
+    color: "#080808",
+    marginTop: "5%",
     marginHorizontal: 24,
-    fontSize: 20,
-    fontWeight: "600",
+    fontSize: 18,
+    fontWeight: "600"
   },
   visualization: {
     marginTop: 30

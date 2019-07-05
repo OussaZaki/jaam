@@ -8,8 +8,10 @@ import {
 
 export class PlaylistCard extends React.Component {
 
-  _onPress = () => {
-    this.props.onPress(this.props.playlist.id);
+  _onPress = (event) => {
+    const { nativeEvent } = event;
+    const quizTime = nativeEvent.locationX > 160 ? 0.5 : 1;
+    this.props.onPress(this.props.playlist.id, quizTime);
   }
 
   render() {

@@ -30,7 +30,7 @@ export default class Score extends React.Component {
           <Text style={styles.title}>{
             isTimeOut
               ? `Oups you run out of time`
-              : (score > 5 ? `Great job!` : `Meh game over.`)}
+              : (score > 4 ? `Great job!` : `Meh game over.`)}
           </Text>
           <View style={styles.titleBar}></View>
         </View>
@@ -92,7 +92,8 @@ export default class Score extends React.Component {
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'stretch',
-    paddingTop: 120,
+    marginTop: "24%",
+    marginBottom: "10%",
     marginHorizontal: 40,
     height: "100%",
     flexDirection: 'column'
@@ -100,7 +101,6 @@ const styles = StyleSheet.create({
   // Header
   /////////////
   header: {
-    marginVertical: 36,
     justifyContent: 'center'
   },
   title: {
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#000",
     width: 40,
     height: 6,
-    marginTop: 12,
+    marginTop: "1%"
   },
   // Recap
   /////////////
@@ -119,14 +119,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignSelf: 'stretch',
-    marginTop: 40,
+    marginTop: "18%",
   },
   recapContainer: {
     backgroundColor: "white",
     borderRadius: 6,
     borderWidth: 1.5,
     borderColor: "#080808",
-    marginTop: 12,
+    marginTop: "2%",
     display: 'flex',
     alignSelf: 'stretch',
     flexDirection: 'row',
@@ -153,13 +153,13 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     alignSelf: 'stretch',
-    marginTop: 60,
+    marginTop: "8%",
     flexGrow: 1
   },
   actionContainer: {
     backgroundColor: "#000",
     borderRadius: 6,
-    marginTop: 12,
+    marginTop: "2%",
     display: 'flex',
     alignSelf: 'stretch',
     flexDirection: 'row',
@@ -179,8 +179,7 @@ const styles = StyleSheet.create({
   /////////////
   footer: {
     alignSelf: 'center',
-    justifyContent: 'center',
-    marginBottom: 32
+    justifyContent: 'center'
   },
   footerText: {
     fontSize: 16

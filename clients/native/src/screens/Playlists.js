@@ -15,9 +15,11 @@ class Playlists extends React.Component {
     this.props.fetchPlaylists();
   };
 
-  _onSelect = (playlistId) => {
+  _onSelect = (playlistId, quizTime) => {
     this.props.selectPlaylist(playlistId);
-    this.props.navigation.navigate("Quiz");
+    this.props.navigation.navigate("Quiz", {
+      quizTime
+    });
   };
 
   render() {

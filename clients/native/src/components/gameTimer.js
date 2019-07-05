@@ -58,7 +58,7 @@ export class GameTimer extends React.Component {
     let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
     let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
     let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
-    const progress = timerTime / timerStart;
+    const progress = Math.round((timerTime / timerStart) * 1000) / 1000;
 
     return {
       seconds,
