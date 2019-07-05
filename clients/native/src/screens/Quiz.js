@@ -6,6 +6,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { getSelectedPlaylist } from "../core/playlists/selectors";
 import { quizState } from "../core/quiz/selectors";
 import { quizGenerator } from "../core/quiz/quizManager";
+import { delay } from "../core/utils/delay";
 
 import { GameTimer } from "../components/gameTimer";
 import { AudioVisual } from "../components/audioVisual";
@@ -37,6 +38,7 @@ class Quiz extends React.Component {
   state = {
     score: 0,
     correctStreak: 0,
+    maxStreak: 0,
     wrongStreak: 0,
     quizStatus: "",
     currentQuestion: null,
@@ -44,9 +46,15 @@ class Quiz extends React.Component {
     isLoading: true
   }
 
+  async componentWillMount() {
+    if (this.state.isLoading && this.props.quiz) {
+      await delay(1000);
+      this._initQuiz();
+    }
+  }
+
   componentDidUpdate() {
     if (this.state.isLoading && this.props.quiz) {
-      this.setState({ isLoading: false });
       this._initQuiz();
     }
   }
@@ -57,7 +65,8 @@ class Quiz extends React.Component {
 
     this.setState({
       qz,
-      currentQuestion
+      currentQuestion,
+      isLoading: false
     });
     currentQuestion.audio.sound.playAsync();
   }
@@ -68,6 +77,7 @@ class Quiz extends React.Component {
       this.setState({
         score: this.state.score + 1,
         correctStreak: this.state.correctStreak + 1,
+        maxStreak: Math.max(this.state.correctStreak + 1, this.state.maxStreak),
         wrongStreak: 0,
         quizStatus: CORRECT_MESSAGES[this.state.correctStreak % MESSAGES_LENGTH],
       });
@@ -85,21 +95,25 @@ class Quiz extends React.Component {
 
     const question = this.state.qz.next(levelUp).value;
     if (!question) {
-      // TODO: recap the quiz and prepare score data.
       this._gameOver();
       return;
     }
 
     question.audio.sound.playAsync();
-    console.log(this.state.currentQuestion.answer);
     this.setState({ currentQuestion: question });
   }
 
-  _gameOver = () => {
-    this.props.navigation.navigate("Score");
+  _gameOver = (timeOut = false) => {
+    this.state.currentQuestion.audio.sound.stopAsync();
+    this.props.navigation.navigate("Score", {
+      isTimeOut: timeOut,
+      score: this.state.score,
+      correctStreak: this.state.maxStreak
+    });
   }
 
   _onBack = () => {
+    this.state.currentQuestion.audio.sound.stopAsync();
     this.props.navigation.navigate("Playlists");
   }
 
@@ -128,7 +142,7 @@ class Quiz extends React.Component {
         <View style={styles.visual}>
           <View style={styles.header}>
             <MaterialCommunityIcons name="arrow-left" size={24} onPress={this._onBack} />
-            <Text style={styles.playlistTitle} numberOfLines={1}>{this.props.playlist.name}</Text>
+            <Text style={styles.playlistTitle} numberOfLines={1}>{this.props.playlist && this.props.playlist.name}</Text>
             <MaterialCommunityIcons name="pause" size={24} onPress={this._onPause} />
           </View>
           <Text style={styles.quizStatus}>{this.state.quizStatus}</Text>
@@ -137,13 +151,13 @@ class Quiz extends React.Component {
 
         <View style={styles.questionContainer}>
           {!this.state.isLoading
-            ? <Text style={styles.question}>{this.state.currentQuestion.question}</Text>
+            ? <Text style={styles.question}>{this.state.currentQuestion &&this.state.currentQuestion.question}</Text>
             : <Text style={styles.question}>Preparing your quiz...</Text>
           }
           <View style={styles.questionBar}></View>
         </View>
         <View style={styles.timer}>
-          {!this.state.isLoading && <GameTimer time={1} onFinish={this._gameOver} />}
+          {!this.state.isLoading && <GameTimer time={0.2} onFinish={() => this._gameOver(true)} />}
         </View>
 
         <View style={styles.optionsContainer}>
