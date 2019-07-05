@@ -11,7 +11,9 @@ export function* quizGenerator({
   const questionOrder = randomOrderList(tracks.length);
 
   for (const index of questionOrder) {
+    const audio = tracks[index].audio;
     const question = pickRandomly(QUESTION_LEVEL[level], 1);
+
     let options, answer;
     switch (question) {
       case QUESTION_TYPES.TRACK_NAME:
@@ -44,6 +46,7 @@ export function* quizGenerator({
     }
 
     var levelUp = yield {
+      audio,
       question,
       answer,
       options,

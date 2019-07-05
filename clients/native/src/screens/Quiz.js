@@ -59,9 +59,11 @@ class Quiz extends React.Component {
       qz,
       currentQuestion
     });
+    currentQuestion.audio.sound.playAsync();
   }
 
   _onAnswer = (answer) => {
+    this.state.currentQuestion.audio.sound.stopAsync();
     if (answer === this.state.currentQuestion.answer) {
       this.setState({
         score: this.state.score + 1,
@@ -87,6 +89,8 @@ class Quiz extends React.Component {
       this._gameOver();
       return;
     }
+
+    question.audio.sound.playAsync();
     console.log(this.state.currentQuestion.answer);
     this.setState({ currentQuestion: question });
   }
@@ -136,15 +140,10 @@ class Quiz extends React.Component {
             ? <Text style={styles.question}>{this.state.currentQuestion.question}</Text>
             : <Text style={styles.question}>Preparing your quiz...</Text>
           }
-              <View style={styles.questionBar}></View>
-            </View>
-            : <View>
-              <Text style={styles.preparing}>Preparing your quiz...</Text>
-            </View>
-          }
+          <View style={styles.questionBar}></View>
         </View>
         <View style={styles.timer}>
-          {!this.state.isLoading && <GameTimer time={2} onFinish={this._gameOver} />}
+          {!this.state.isLoading && <GameTimer time={1} onFinish={this._gameOver} />}
         </View>
 
         <View style={styles.optionsContainer}>
@@ -176,10 +175,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignSelf: 'stretch',
     justifyContent: 'space-between'
-  },
-  score: {
-    fontSize: 16,
-    fontWeight: "500"
   },
   playlistTitle: {
     fontSize: 20,

@@ -34,7 +34,7 @@ const playlistsMiddlewares = ({ dispatch, getState }) => (next) => async (action
       const accessToken = getAccessToken(getState());
       const playlist = getSelectedPlaylist(getState());
       const tracks = await fetchTracks(playlist.tracks.href, accessToken);
-      const quiz = adaptPlaylistToQuiz(tracks);
+      const quiz = await adaptPlaylistToQuiz(tracks);
 
       dispatch(adaptQuiz(quiz));
     } catch (error) {
