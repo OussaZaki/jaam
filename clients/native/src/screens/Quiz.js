@@ -10,10 +10,35 @@ import { quizGenerator } from "../core/quiz/quizManager";
 import { GameTimer } from "../components/gameTimer";
 import { AudioVisual } from "../components/audioVisual";
 
+const MESSAGES_LENGTH = 8;
+const WRONG_MESSAGES = [
+  "Wrong :)",
+  "You can do better.",
+  "Is this even your playlist?",
+  "Seriously? you suck!",
+  "You're disappointing me",
+  "Facepalm",
+  "Shame.",
+  "Sigh..."
+];
+
+const CORRECT_MESSAGES = [
+  "Correct :)",
+  "You are good.",
+  "You know your shit?",
+  "Seriously? you rock!",
+  "I'm surprised!",
+  "Applauds",
+  "Damn.",
+  "Such an MVP"
+];
+
 class Quiz extends React.Component {
   state = {
     score: 0,
-    streak: 0,
+    correctStreak: 0,
+    wrongStreak: 0,
+    quizStatus: "",
     currentQuestion: null,
     qz: null,
     isLoading: true
@@ -40,11 +65,15 @@ class Quiz extends React.Component {
     if (answer === this.state.currentQuestion.answer) {
       this.setState({
         score: this.state.score + 1,
-        streak: this.state.streak + 1
+        correctStreak: this.state.correctStreak + 1,
+        wrongStreak: 0,
+        quizStatus: CORRECT_MESSAGES[this.state.correctStreak % MESSAGES_LENGTH],
       });
     } else {
       this.setState({
-        streak: 0
+        correctStreak: 0,
+        quizStatus: WRONG_MESSAGES[this.state.wrongStreak % MESSAGES_LENGTH],
+        wrongStreak: this.state.wrongStreak + 1
       });
     }
 
@@ -70,6 +99,12 @@ class Quiz extends React.Component {
     this.props.navigation.navigate("Playlists");
   }
 
+  _onPause = () => {
+    this.setState({
+      quizStatus: "Lol play! there ain't no pause here."
+    });
+  }
+
   _renderOptions = (options, answerCallback) => {
     return options.map((option, index) => {
       return (
@@ -92,14 +127,15 @@ class Quiz extends React.Component {
             <Text style={styles.playlistTitle} numberOfLines={1}>{this.props.playlist.name}</Text>
             <MaterialCommunityIcons name="pause" size={24} onPress={this._onPause} />
           </View>
-          <Text style={styles.playlistTitle}>{this.props.playlist.name}</Text>
+          <Text style={styles.quizStatus}>{this.state.quizStatus}</Text>
           <AudioVisual animated={!this.state.isLoading} />
         </View>
 
         <View style={styles.questionContainer}>
           {!this.state.isLoading
-            ? <View>
-              <Text style={styles.question}>{this.state.currentQuestion.question}</Text>
+            ? <Text style={styles.question}>{this.state.currentQuestion.question}</Text>
+            : <Text style={styles.question}>Preparing your quiz...</Text>
+          }
               <View style={styles.questionBar}></View>
             </View>
             : <View>
@@ -150,6 +186,10 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     width: "70%",
   },
+  quizStatus: {
+    color: "#fff",
+    marginTop: 24,
+    marginHorizontal: 24,
     fontSize: 20,
     fontWeight: "600",
   },
