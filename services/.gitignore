@@ -1,3 +1,3 @@
 dist/
 .env
-./client-secret.json
+client-secret.json
