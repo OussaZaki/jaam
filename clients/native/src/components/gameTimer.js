@@ -1,11 +1,10 @@
 import React from 'react';
 import {
   StyleSheet,
-  Text,
   View
 } from 'react-native';
 import * as Progress from 'react-native-progress';
-
+import { getTimeProgress } from "../core/utils/getTimeProgress";
 
 export class GameTimer extends React.Component {
   state = {
@@ -32,6 +31,7 @@ export class GameTimer extends React.Component {
     }, 10);
   };
 
+  // Trigger game over from the gameTimer, using the onFinish prop.
   stopTimer = () => {
     clearInterval(this.timer);
     this.setState({ timerOn: false });
@@ -53,21 +53,6 @@ export class GameTimer extends React.Component {
     }
   };
 
-  formatTime = () => {
-    const { timerTime, timerStart } = this.state;
-    let seconds = ("0" + (Math.floor((timerTime / 1000) % 60) % 60)).slice(-2);
-    let minutes = ("0" + Math.floor((timerTime / 60000) % 60)).slice(-2);
-    let hours = ("0" + Math.floor((timerTime / 3600000) % 60)).slice(-2);
-    const progress = Math.round((timerTime / timerStart) * 1000) / 1000;
-
-    return {
-      seconds,
-      minutes,
-      hours,
-      progress
-    }
-  }
-
   componentWillMount = () => {
     this.adjustTimer(this.props.time);
   };
@@ -76,23 +61,18 @@ export class GameTimer extends React.Component {
     this.startTimer();
   }
 
+  // Game over is triggered by the parent component.
+  // So we need to clean up anyway.
   componentWillUnmount = () => {
     clearInterval(this.timer);
     this.setState({ timerOn: false });
   }
 
   render() {
-    const {
-      seconds,
-      minutes,
-      hours,
-      progress
-    } = this.formatTime();
-
     return (
       <View style={styles.timer}>
         <Progress.Bar
-          progress={progress}
+          progress={getTimeProgress(this.state.timerTime, this.state.timerStart)}
           width={null}
           borderRadius={0}
           borderWidth={0}
@@ -100,7 +80,6 @@ export class GameTimer extends React.Component {
           color={"#FFBE00"}
           unfilledColor={"#505050"}
           />
-        {/* <Text>{hours} : {minutes} : {seconds}</Text> */}
       </View>
     );
   }

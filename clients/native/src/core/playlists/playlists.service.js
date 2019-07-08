@@ -28,5 +28,5 @@ export const fetchTracks = async (tracksUrl, accessToken) => {
     throw new AppError(ERRORS.SESSION_EXPIRED);
   }
 
-  return responseJson.items;
+  return responseJson.items.slice(0, 10);
 }

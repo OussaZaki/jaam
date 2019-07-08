@@ -10,7 +10,9 @@ export class PlaylistCard extends React.Component {
 
   _onPress = (event) => {
     const { nativeEvent } = event;
-    const quizTime = nativeEvent.locationX > 160 ? 0.5 : 1;
+
+    // TODO: move to configuration page
+    const quizTime = nativeEvent.locationX > 160 ? 1 : (nativeEvent.locationX < 60 ? 0 : 0.5);
     this.props.onPress(this.props.playlist.id, quizTime);
   }
 

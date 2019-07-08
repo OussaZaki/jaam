@@ -43,7 +43,8 @@ class Quiz extends React.Component {
     quizStatus: "",
     currentQuestion: null,
     qz: null,
-    isLoading: true
+    isLoading: true,
+    startTime: null
   }
 
   async componentWillMount() {
@@ -66,7 +67,8 @@ class Quiz extends React.Component {
     this.setState({
       qz,
       currentQuestion,
-      isLoading: false
+      isLoading: false,
+      startTime: Date.now()
     });
     currentQuestion.audio.sound.playAsync();
   }
@@ -108,7 +110,8 @@ class Quiz extends React.Component {
     this.props.navigation.navigate("Score", {
       isTimeOut: timeOut,
       score: this.state.score,
-      correctStreak: this.state.maxStreak
+      correctStreak: this.state.maxStreak,
+      totalTime: Date.now() - this.state.startTime
     });
   }
 
@@ -137,7 +140,7 @@ class Quiz extends React.Component {
   }
 
   render() {
-    const quizTime = this.props.navigation.getParam('quizTime', 0.2);
+    const quizTime = this.props.navigation.getParam('quizTime', 0);
 
     return (
       <View style={styles.container}>
@@ -159,7 +162,7 @@ class Quiz extends React.Component {
           <View style={styles.questionBar}></View>
         </View>
         <View style={styles.timer}>
-          {!this.state.isLoading && <GameTimer time={quizTime} onFinish={this._gameOver} />}
+          {(!this.state.isLoading && quizTime !== 0) && <GameTimer time={quizTime} onFinish={this._gameOver} />}
         </View>
 
         <View style={styles.optionsContainer}>

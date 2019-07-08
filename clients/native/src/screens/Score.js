@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity, Linking } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { formatTime } from "../core/utils/formatTime";
 
 export default class Score extends React.Component {
 
@@ -17,12 +18,18 @@ export default class Score extends React.Component {
   }
 
   render() {
-    /* 2. Get the param, provide a fallback value if not available */
     const { navigation } = this.props;
 
     const isTimeOut = navigation.getParam('isTimeOut', false);
     const score = navigation.getParam('score', 3);
     const correctStreak = navigation.getParam('correctStreak', 3);
+    const totalTime = navigation.getParam('totalTime', 0);
+
+    const {
+      seconds,
+      minutes,
+      hours
+    } = formatTime(totalTime);
 
     return (
       <View style={styles.container}>
@@ -43,7 +50,6 @@ export default class Score extends React.Component {
             />
             <Text style={styles.recapTitle}>{`Score.`}</Text>
             <Text style={styles.recapValue}>{score + ' / 10'}</Text>
-
           </View>
           <View style={styles.recapContainer}>
             <MaterialCommunityIcons
@@ -53,6 +59,15 @@ export default class Score extends React.Component {
             />
             <Text style={styles.recapTitle}>{`Streak.`}</Text>
             <Text style={styles.recapValue}>{correctStreak}</Text>
+          </View>
+          <View style={styles.recapContainer}>
+            <MaterialCommunityIcons
+              name="timer"
+              size={30}
+              color={"#000"}
+            />
+            <Text style={styles.recapTitle}>{`Time.`}</Text>
+            <Text style={styles.recapValue}>{hours} : {minutes} : {seconds}</Text>
           </View>
         </View>
         <View style={styles.actions}>
