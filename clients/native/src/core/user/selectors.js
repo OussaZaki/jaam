@@ -12,6 +12,12 @@ export const getTokenExpirationTime = createSelector(
   (state) => state.access ? state.access.tokenExpirationTime : null
 );
 
+export const getRefreshToken = createSelector(
+  userState,
+  (state) => state.access ? state.access.refreshToken : null
+);
+
+
 export const getUserId = createSelector(
   userState,
   (state) => state.profile.id

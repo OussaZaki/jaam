@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import { ActivityIndicator, View } from "react-native";
 import { getAccessToken, getTokenExpirationTime } from "../core/user/selectors";
+import { refreshToken } from "../core/user/actions";
 
 export class Loading extends React.Component {
   constructor(props) {
@@ -10,16 +11,21 @@ export class Loading extends React.Component {
   }
 
   _bootstrapAsync = async () => {
-    if (!this.props.accessToken) {
-      this.props.navigation.navigate("Signin");
+    const {
+      accessToken,
+      tokenExpirationTime,
+      navigation
+    } = this.props;
 
+    if (!accessToken) {
+      navigation.navigate("Signin");
+      return;
+    }
+
+    if (!tokenExpirationTime || new Date().getTime() > tokenExpirationTime) {
+      refreshToken();
     } else {
-      if (!this.props.tokenExpirationTime || new Date().getTime() > this.props.tokenExpirationTime) {
-        // TODO: Refresh token here.
-        this.props.navigation.navigate("Signin");
-      } else {
-        this.props.navigation.navigate("Playlists");
-      }
+      navigation.navigate("Playlists");
     }
   };
 
@@ -37,7 +43,9 @@ const mapStateToProps = state => ({
   tokenExpirationTime: getTokenExpirationTime(state)
 });
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  refreshToken: refreshToken
+};
 
 export default connect(
   mapStateToProps,

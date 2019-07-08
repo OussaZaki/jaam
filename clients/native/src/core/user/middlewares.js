@@ -1,6 +1,6 @@
 import { getType } from "typesafe-actions";
 
-import { loginWithRefresh, auth } from "./login.expo.service";
+import { login, auth, refresh } from "./login.expo.service";
 import { getUser } from "./user.service";
 import { ERRORS } from "../errors";
 import * as actions from "./actions";
@@ -11,7 +11,7 @@ const userMiddlewares = ({ dispatch, getState }) => (next) => async (action) => 
 
   if (action.type == getType(actions.login.request)) {
     try {
-      const access = await loginWithRefresh();
+      const access = await login();
       const authData = await auth(access);
       const user = await getUser(authData.accessToken);
 
@@ -19,6 +19,17 @@ const userMiddlewares = ({ dispatch, getState }) => (next) => async (action) => 
       dispatch(actions.login.success(authData));
     } catch (error) {
       dispatch(actions.login.failure(error));
+    }
+  }
+
+  if (action.type == getType(actions.refreshToken.request)) {
+    try {
+      const refreshToken = selectors.getRefreshToken(getState());
+      const refreshData = await refresh(refreshToken);
+
+      dispatch(actions.refreshToken.success(refreshData));
+    } catch (error) {
+      dispatch(actions.refreshToken.failure(error));
     }
   }
 

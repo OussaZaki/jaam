@@ -1,11 +1,24 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import { Router } from './routes';
-import store from './core/store';
-
+import { PersistGate } from 'redux-persist/integration/react'
 import { View, ImageBackground } from 'react-native';
 import { AppLoading, SplashScreen } from 'expo';
 import { Asset } from 'expo-asset';
+
+import { Router } from './routes';
+import configureStore from './core/store';
+
+
+const { persistor, store } = configureStore();
+
+const FakeSplah = ({ loadCallback }) => (
+  <View style={{ flex: 1 }}>
+    <ImageBackground
+      source={require('../assets/jaam-splash.png')}
+      style={{ width: '100%', height: '100%' }}
+      onLoad={loadCallback || null} />
+  </View>
+)
 
 export default class App extends React.Component {
   state = {
@@ -46,18 +59,15 @@ export default class App extends React.Component {
 
     if (!this.state.isAppReady) {
       return (
-        <View style={{ flex: 1 }}>
-          <ImageBackground
-            source={require('../assets/jaam-splash.png')}
-            style={{ width: '100%', height: '100%' }}
-            onLoad={this._cacheResourcesAsync} />
-        </View>
+        <FakeSplah loadCallback={this._cacheResourcesAsync} />
       );
     }
 
     return (
       <Provider store={store}>
-        <Router />
+        <PersistGate loading={<FakeSplah />} persistor={persistor}>
+          <Router />
+        </PersistGate>
       </Provider>
     );
   }

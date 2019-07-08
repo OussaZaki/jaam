@@ -23,7 +23,7 @@ app.get("/ping", (_req: Request, res: Response) => {
 });
 
 app.post('/auth', auth);
-app.get('/refresh_token', refreshToken);
+app.post('/refresh_token', refreshToken);
 
 app.listen(PORT, () => {
   // tslint:disable-next-line

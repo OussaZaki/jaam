@@ -25,6 +25,12 @@ export default combineReducers({
       case getType(actions.login.success):
         return action.payload;
 
+      case getType(actions.refreshToken.success):
+        return {
+          ...action.payload,
+          state
+        }
+
       case getType(actions.revokeToken):
         return null;
 

@@ -16,7 +16,7 @@ const _getExpirationTime = (timeInSeconds) => {
 }
 
 // TODO handle the cancel case.
-export const login = async () => {
+export const _login = async () => {
   const redirectUrl = AuthSession.getRedirectUrl();
   const result = await AuthSession.startAsync({
     authUrl:
@@ -35,7 +35,7 @@ export const login = async () => {
   };
 };
 
-export const loginWithRefresh = async () => {
+export const login = async () => {
   const state = generateRandomString(16);
   await AsyncStorage.setItem('spotify_auth_state', state);
 
@@ -78,4 +78,19 @@ export const auth = async ({ code, state }) => {
 
   const authJson = await authenticate.json();
   return authJson;
+};
+
+export const refresh = async refreshToken => {
+  const refreshing = await fetch(REFRESH_URL, {
+    method: 'POST',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    referrer: 'jaam-native-client',
+    body: JSON.stringify({ refresh_token: refreshToken })
+  });
+
+  const refreshResult = await refreshing.json();
+  return refreshResult;
 };
