@@ -4,12 +4,12 @@ const userState = (state) => state.user;
 
 export const getAccessToken = createSelector(
   userState,
-  (state) => state.access ? state.access.token : null
+  (state) => state.access ? state.access.accessToken : null
 );
 
 export const getTokenExpirationTime = createSelector(
   userState,
-  (state) => state.access ? state.access.expirationTime : null
+  (state) => state.access ? state.access.tokenExpirationTime : null
 );
 
 export const getUserId = createSelector(

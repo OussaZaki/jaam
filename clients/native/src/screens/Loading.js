@@ -12,6 +12,7 @@ export class Loading extends React.Component {
   _bootstrapAsync = async () => {
     if (!this.props.accessToken) {
       this.props.navigation.navigate("Signin");
+
     } else {
       if (!this.props.tokenExpirationTime || new Date().getTime() > this.props.tokenExpirationTime) {
         // TODO: Refresh token here.
