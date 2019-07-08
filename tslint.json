@@ -22,12 +22,6 @@
     "no-implicit-dependencies": false,
     "no-shadowed-variable": false,
     "no-empty": false,
-    "no-unused-variable": [
-      true,
-      {
-        "ignore-pattern": "^_"
-      }
-    ],
     "prefer-object-spread": false,
     "forin": false,
     "no-empty-interface": false,

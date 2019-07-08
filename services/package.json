@@ -13,7 +13,7 @@
     "pretest": "yarn build",
     "test": "jest --passWithNoTests",
     "posttest": "yarn lint",
-    "lint": "tslint",
+    "lint": "tslint -c tslint.json -p tsconfig.json",
     "start": "node ./dist/index.js",
     "start:debug": "node --inspect-brk ./dist/index.js",
     "build": "tsc",

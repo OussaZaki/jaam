@@ -26,5 +26,6 @@ app.post('/auth', auth);
 app.get('/refresh_token', refreshToken);
 
 app.listen(PORT, () => {
+  // tslint:disable-next-line
   console.log(`App listening on port ${PORT}`);
 });

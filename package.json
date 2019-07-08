@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "repoRoot": true,
+  "scripts": {
+  },
+  "devDependencies": {
+    "no-enum-tslint-rule": "^1.0.1",
+    "prettier": "^1.14.2",
+    "tslint": "^5.15.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "typescript": "^3.5.2"
+  },
+  "packages": [
+    "clients/*",
+    "services/*",
+    "cli/*"
+  ]
+}
