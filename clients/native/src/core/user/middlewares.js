@@ -22,14 +22,14 @@ const userMiddlewares = ({ dispatch, getState }) => (next) => async (action) => 
     }
   }
 
-  if (action.type == getType(actions.refreshToken.request)) {
+  if (action.type == getType(actions.refreshSession.request)) {
     try {
       const refreshToken = selectors.getRefreshToken(getState());
       const refreshData = await refresh(refreshToken);
 
-      dispatch(actions.refreshToken.success(refreshData));
+      dispatch(actions.refreshSession.success(refreshData));
     } catch (error) {
-      dispatch(actions.refreshToken.failure(error));
+      dispatch(actions.refreshSession.failure(error));
     }
   }
 

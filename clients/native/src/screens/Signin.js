@@ -2,10 +2,28 @@ import React from "react";
 import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator, ImageBackground } from "react-native";
 
-import { login } from "../core/user/actions";
-import { getIsLoading, getAccessToken } from "../core/user/selectors";
+import { login, refreshSession } from "../core/user/actions";
+import { getIsLoading, getAccessToken, getTokenExpirationTime } from "../core/user/selectors";
 
 export class Signin extends React.Component {
+  state = {
+    refreshing: true
+  }
+
+  componentDidMount() {
+    if (!this.props.accessToken) {
+      this.setState({ refreshing: false });
+      return;
+    }
+
+    if (!this.props.tokenExpirationTime || new Date().getTime() > this.props.tokenExpirationTime) {
+      this.props.refreshSession();
+      this.setState({ refreshing: false });
+    } else {
+      this.props.navigation.navigate("Playlists");
+    }
+  }
+
   componentDidUpdate(prevProps) {
     if (this.props.accessToken !== prevProps.accessToken) {
       this.props.navigation.navigate("Playlists");
@@ -28,7 +46,7 @@ export class Signin extends React.Component {
           <View style={styles.footer}>
             <TouchableOpacity onPress={this.props.login}>
               {
-                this.props.isLoading
+                (this.props.isLoading || this.state.refreshing)
                   ? <ActivityIndicator size="large" color="#1DB954" />
                   : <Text style={styles.spotifyButton}>Connect Spotify</Text>
               }
@@ -89,11 +107,13 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   isLoading: getIsLoading(state),
-  accessToken: getAccessToken(state)
+  accessToken: getAccessToken(state),
+  tokenExpirationTime: getTokenExpirationTime(state)
 });
 
 const mapDispatchToProps = {
-  login: login.request
+  login: login.request,
+  refreshSession: refreshSession.request
 };
 
 export default connect(

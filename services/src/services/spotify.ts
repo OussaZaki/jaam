@@ -43,7 +43,7 @@ export const auth = (req: Request, res: Response) => {
 };
 
 export const refreshToken = (req: Request, res: Response) => {
-  const refresh_token = req.body.refresh_token;
+  const refresh_token = req.body.refreshToken;
   const authOptions = {
     url: 'https://accounts.spotify.com/api/token',
     headers: { 'Authorization': 'Basic ' + (new Buffer(process.env.SPOTIFY_CLIENT_ID + ':' + process.env.SPOTIFY_CLIENT_SECRET).toString('base64')) },

@@ -4,7 +4,6 @@ import {
 } from "react-navigation";
 import { useScreens } from 'react-native-screens';
 
-import LoadingScreen from "./screens/Loading";
 import SigninScreen from "./screens/Signin";
 import PlaylistsScreen from "./screens/Playlists";
 import QuizScreen from "./screens/Quiz";
@@ -14,14 +13,13 @@ import ScoreScreen from "./screens/Score";
 const AppNavigator = createAppContainer(
   createSwitchNavigator(
     {
-      ['Loading']: LoadingScreen,
       ['Signin']: SigninScreen,
       ['Playlists']: PlaylistsScreen,
       ['Quiz']: QuizScreen,
       ['Score']: ScoreScreen
     },
     {
-      initialRouteName: "Loading",
+      initialRouteName: "Signin",
       headerMode: "none",
       navigationOptions: {
         headerVisible: false

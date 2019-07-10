@@ -25,7 +25,7 @@ export default combineReducers({
       case getType(actions.login.success):
         return action.payload;
 
-      case getType(actions.refreshToken.success):
+      case getType(actions.refreshSession.success):
         return {
           ...action.payload,
           state
@@ -42,11 +42,13 @@ export default combineReducers({
     switch (action.type) {
       case getType(actions.login.request):
       case getType(actions.fetchUser.request):
+      case getType(actions.refreshSession.request):
         return true;
 
       case getType(actions.fetchUser.success):
       case getType(actions.login.failure):
-      case getType(actions.fetchUser.success):
+      case getType(actions.refreshSession.success):
+      case getType(actions.refreshSession.failure):
         return false;
 
       default:
@@ -57,6 +59,7 @@ export default combineReducers({
     switch (action.type) {
       case getType(actions.login.failure):
       case getType(actions.fetchUser.failure):
+      case getType(actions.refreshSession.failure):
         return action.payload;
 
       default:

@@ -6,10 +6,10 @@ export const login = createAsyncAction(
   "LOGIN_FAILURE"
 )();
 
-export const refreshToken = createAsyncAction(
-  "REFRESH_TOKEN_REQUEST",
-  "REFRESH_TOKEN_SUCCESS",
-  "REFRESH_TOKEN_FAILURE"
+export const refreshSession = createAsyncAction(
+  "REFRESH_SESSION_REQUEST",
+  "REFRESH_SESSION_SUCCESS",
+  "REFRESH_SESSION_FAILURE"
 )();
 
 export const fetchUser = createAsyncAction(

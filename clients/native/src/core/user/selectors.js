@@ -17,7 +17,6 @@ export const getRefreshToken = createSelector(
   (state) => state.access ? state.access.refreshToken : null
 );
 
-
 export const getUserId = createSelector(
   userState,
   (state) => state.profile.id

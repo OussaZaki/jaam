@@ -7,6 +7,7 @@ import { AppError, ERRORS } from "../errors";
 import {
   AUTHORIZE_URL,
   AUTHENTICATE_URL,
+  REFRESH_URL,
   CLIENT_ID,
   SCOPES
 } from "./const";
@@ -62,7 +63,6 @@ export const auth = async ({ code, state }) => {
     throw new AppError(ERRORS.STATE_MISSMATCH);
   }
 
-  debugger;
   const authenticate = await fetch(AUTHENTICATE_URL, {
     method: 'POST',
     headers: {
@@ -88,7 +88,7 @@ export const refresh = async refreshToken => {
       'Content-Type': 'application/json'
     },
     referrer: 'jaam-native-client',
-    body: JSON.stringify({ refresh_token: refreshToken })
+    body: JSON.stringify({ refreshToken })
   });
 
   const refreshResult = await refreshing.json();
