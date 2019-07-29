@@ -1,15 +1,25 @@
 import { shuffleArray } from "./shuffleArray";
 
-const pickRandomly = (array, n, include) => {
+/**
+ * Takes an array of elements, and picks randomly n elements, if include is passed
+ * then it will be added to the random list, and the
+ *
+ *
+ * @param array the array of elements.
+ * @param n the number of elements to pick.
+ * @param include the element to include in the random list.
+ */
+export const pickRandomly = (array, n, include) => {
   let result = new Array(n + 1),
     len = array.length,
     taken = new Array(len);
 
   if (n > len)
-    throw new RangeError("getRandom: more elements taken than available");
+    throw new RangeError("pickRandomly: more elements to be taken than available");
 
   if (include)
     result[n] = include;
+
   while (n) {
     const x = Math.floor(Math.random() * len);
     if (include && array[x] === include) {
