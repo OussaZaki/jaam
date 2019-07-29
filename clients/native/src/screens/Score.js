@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Linking } from 'react-native'
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { formatTime } from "../core/utils/formatTime";
 
-import { getSelectedPlaylist } from "../core/playlists/selectors";
+import { getSelectedPlaylistId } from "../core/playlists/selectors";
 import { selectPlaylist } from "../core/playlists/actions";
 
 class Score extends React.Component {
@@ -207,7 +207,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  selectedPlaylist: getSelectedPlaylist(state)
+  selectedPlaylist: getSelectedPlaylistId(state)
 });
 
 const mapDispatchToProps = {
