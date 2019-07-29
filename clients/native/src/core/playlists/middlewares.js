@@ -1,5 +1,7 @@
 import { getType } from "typesafe-actions";
 
+import AudioInterface from "../audioInterface/index.expo";
+
 import { fetchPlaylists, fetchTracks } from "./playlists.service";
 import { ERRORS } from "../errors";
 
@@ -34,7 +36,7 @@ const playlistsMiddlewares = ({ dispatch, getState }) => (next) => async (action
       const accessToken = getAccessToken(getState());
       const playlist = getSelectedPlaylist(getState());
       const tracks = await fetchTracks(playlist.tracks.href, accessToken);
-      const quiz = await adaptPlaylistToQuiz(tracks);
+      const quiz = await adaptPlaylistToQuiz(tracks, AudioInterface);
 
       dispatch(adaptQuiz(quiz));
     } catch (error) {

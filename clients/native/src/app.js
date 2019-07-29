@@ -7,7 +7,7 @@ import { Asset } from 'expo-asset';
 
 import { Router } from './routes';
 import configureStore from './core/store';
-
+import AudioInterface from './core/audioInterface/index.expo';
 
 const { persistor, store } = configureStore();
 
@@ -25,6 +25,11 @@ export default class App extends React.Component {
     isSplashReady: false,
     isAppReady: false,
   };
+
+  _bootstrap = async () => {
+    AudioInterface.initAudioInterface();
+    this._cacheSplashResourcesAsync();
+  }
 
   _cacheSplashResourcesAsync = async () => {
     const png = require('../assets/jaam-splash.png');
@@ -49,7 +54,7 @@ export default class App extends React.Component {
     if (!this.state.isSplashReady) {
       return (
         <AppLoading
-          startAsync={this._cacheSplashResourcesAsync}
+          startAsync={this._bootstrap}
           onFinish={() => this.setState({ isSplashReady: true })}
           onError={console.warn}
           autoHideSplash={false}
