@@ -5,6 +5,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { getSelectedPlaylist } from "../core/playlists/selectors";
 import { quizState } from "../core/quiz/selectors";
+import { clearQuiz } from "../core/quiz/actions";
 import { quizGenerator } from "../core/quiz/quizManager";
 import { delay } from "../core/utils/delay";
 
@@ -107,6 +108,7 @@ class Quiz extends React.Component {
 
   _gameOver = (timeOut = false) => {
     this.state.currentQuestion.audio.sound.stopAsync();
+    this.props.clearQuiz();
     this.props.navigation.navigate("Score", {
       isTimeOut: timeOut,
       score: this.state.score,
@@ -117,6 +119,7 @@ class Quiz extends React.Component {
 
   _onBack = () => {
     this.state.currentQuestion.audio.sound.stopAsync();
+    this.props.clearQuiz();
     this.props.navigation.navigate("Playlists");
   }
 
@@ -262,6 +265,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  clearQuiz: clearQuiz
 };
 
 export default connect(

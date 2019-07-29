@@ -7,6 +7,9 @@ export default (state = null, action) => {
     case getType(actions.adaptQuiz):
       return action.payload;
 
+    case getType(actions.clearQuiz):
+      return null;
+
     default:
       return state;
   }

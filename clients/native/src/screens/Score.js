@@ -1,15 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, Linking } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { formatTime } from "../core/utils/formatTime";
 
-export default class Score extends React.Component {
+import { getSelectedPlaylist } from "../core/playlists/selectors";
+import { selectPlaylist } from "../core/playlists/actions";
+
+class Score extends React.Component {
 
   _goToPlaylists = () => {
     this.props.navigation.navigate("Playlists");
   }
 
   _goToSamePlaylist = () => {
+    this.props.selectPlaylist(this.props.selectedPlaylist);
     this.props.navigation.navigate("Quiz");
   }
 
@@ -200,3 +205,16 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
 });
+
+const mapStateToProps = state => ({
+  selectedPlaylist: getSelectedPlaylist(state)
+});
+
+const mapDispatchToProps = {
+  selectPlaylist: selectPlaylist
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Score);

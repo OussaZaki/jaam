@@ -6,7 +6,8 @@ import rootReducer from './reducer';
 
 const persistConfig = {
   key: "root",
-  storage: AsyncStorage
+  storage: AsyncStorage,
+  blacklist: ['quiz']
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
