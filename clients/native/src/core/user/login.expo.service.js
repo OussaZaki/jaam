@@ -76,6 +76,11 @@ export const auth = async ({ code, state }) => {
     })
   });
 
+  if (!authenticate.ok) {
+    // TODO: handle proper Network errors
+    throw new AppError();
+  }
+
   const authJson = await authenticate.json();
   return authJson;
 };
@@ -90,6 +95,11 @@ export const refresh = async refreshToken => {
     referrer: 'jaam-native-client',
     body: JSON.stringify({ refreshToken })
   });
+
+  if (!refreshing.ok) {
+    // TODO: handle proper Network errors
+    throw new AppError();
+  }
 
   const refreshResult = await refreshing.json();
   return refreshResult;
