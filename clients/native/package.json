@@ -8,7 +8,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "expo": "^32.0.0",
+    "expo": "^36.0.0",
     "jest": "^24.8.0",
     "querystring": "^0.2.0",
     "react": "16.5.0",
