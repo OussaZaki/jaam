@@ -26,3 +26,8 @@ export const getIsLoading = createSelector(
   userState,
   (state) => state.isLoading
 );
+
+export const getIsSessionExpired = (state) => {
+  const tokenExpirationTime = getTokenExpirationTime(state);
+  return !tokenExpirationTime || new Date().getTime() > tokenExpirationTime;
+};

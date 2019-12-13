@@ -1,5 +1,5 @@
 import { QUESTION_LEVEL, QUESTION_TYPES } from "./questionTypes";
-import { pickRandomly, randomOrderList } from "./helpers";
+import { pickRandomly, getShuffeledList } from "./helpers";
 
 export function* quizGenerator({
   tracks,
@@ -8,7 +8,7 @@ export function* quizGenerator({
   artistOptions
 }) {
   let level = 0;
-  const questionOrder = randomOrderList(tracks.length);
+  const questionOrder = getShuffeledList(tracks.length);
 
   for (const index of questionOrder) {
     const audio = tracks[index].audio;

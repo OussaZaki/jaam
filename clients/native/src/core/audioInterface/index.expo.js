@@ -1,5 +1,13 @@
 import { Audio } from 'expo';
 
+
+/**
+ * Init the expo audio interface and set the Audio Mode Asynchronisly.
+ *
+ * TODO: Inject the configuration instead of hard coding it.
+ * TODO: Inspect the async part of the init function.
+ * TODO: Add init failure flow with a custome exception.
+ */
 const initAudioInterface = () => {
   Audio.setAudioModeAsync({
     allowsRecordingIOS: false,
@@ -11,6 +19,15 @@ const initAudioInterface = () => {
   });
 }
 
+
+
+/**
+ * Asynchronisly Download the audio track for a given URI
+ *
+ * @param {string} uri uri string of the audio to be downloaded.
+ *
+ * TODO: Add download failure flow with a custome exception.
+ */
 const getTrackAudio = async (uri) => {
   const source = { uri };
   const initialStatus = {

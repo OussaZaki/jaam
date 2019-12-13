@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { StyleSheet, Text, View, TouchableOpacity, ActivityIndicator, ImageBackground } from "react-native";
 
 import { login, refreshSession } from "../core/user/actions";
-import { getIsLoading, getAccessToken, getTokenExpirationTime } from "../core/user/selectors";
+import { getIsLoading, getAccessToken, getIsSessionExpired } from "../core/user/selectors";
 
 export class Signin extends React.Component {
   state = {
@@ -16,7 +16,7 @@ export class Signin extends React.Component {
       return;
     }
 
-    if (!this.props.tokenExpirationTime || new Date().getTime() > this.props.tokenExpirationTime) {
+    if (this.props.isSessionExpired) {
       this.props.refreshSession();
       this.setState({ refreshing: false });
     } else {
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   isLoading: getIsLoading(state),
   accessToken: getAccessToken(state),
-  tokenExpirationTime: getTokenExpirationTime(state)
+  isSessionExpired: getIsSessionExpired(state)
 });
 
 const mapDispatchToProps = {

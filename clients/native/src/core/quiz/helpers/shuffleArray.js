@@ -1,6 +1,6 @@
 /**
- * Shuffles array in place. ES6 version
- * @param {Array} a items An array containing the items.
+ * Shuffles array in place.
+ * @param {Array} a An array containing the items.
  */
 export const shuffleArray = (a) => {
   for (let i = a.length - 1; i > 0; i--) {
