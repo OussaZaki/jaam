@@ -14,7 +14,7 @@ const { persistor, store } = configureStore();
 const FakeSplah = ({ loadCallback }) => (
   <View style={{ flex: 1 }}>
     <ImageBackground
-      source={require('../assets/jaam-splash.png')}
+      source={require('../../assets/jaam-splash.png')}
       style={{ width: '100%', height: '100%' }}
       onLoad={loadCallback || null} />
   </View>
@@ -32,14 +32,14 @@ export default class App extends React.Component {
   }
 
   _cacheSplashResourcesAsync = async () => {
-    const png = require('../assets/jaam-splash.png');
+    const png = require('../../assets/jaam-splash.png');
     return Asset.fromModule(png).downloadAsync();
   };
 
   _cacheResourcesAsync = async () => {
     SplashScreen.hide();
     const images = [
-      require('../assets/jaam-splash.png')
+      require('../../assets/jaam-splash.png')
     ];
 
     const cacheImages = images.map(image => {

@@ -32,7 +32,7 @@ export class Signin extends React.Component {
 
   render() {
     return (
-      <ImageBackground source={require('../../assets/jaam-splash.png')} style={{ width: '100%', height: '100%' }}>
+      <ImageBackground source={require('../../../assets/jaam-splash.png')} style={{ width: '100%', height: '100%' }}>
         <View style={styles.container}>
           <View style={styles.spacer} />
           <View style={styles.header}>
