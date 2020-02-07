@@ -1,11 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, TextProps } from 'react-native';
+import { Fonts } from './Fonts';
+import { Colors } from './Colors';
 
 const styles = StyleSheet.create({
     paragraph: {
-        fontFamily: "Roboto-Regular",
-        fontWeight: "400",
-        color: "#F2F2F2",
+        fontFamily: Fonts.main,
+        color: Colors.light,
         fontSize: 14,
         lineHeight: 20,
         paddingRight: 20,

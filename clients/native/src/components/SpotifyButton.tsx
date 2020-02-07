@@ -2,10 +2,12 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, TouchableOpacityProps, ActivityIndicator, View } from 'react-native';
 import SpotifyIcon from './SpotifyIcon';
 import { Loader } from './Loader';
+import { Colors } from './Colors';
+import { Fonts } from './Fonts';
 
 const styles = StyleSheet.create({
     spotifyButton: {
-        backgroundColor: "#ffffff",
+        backgroundColor: Colors.light,
         width: "100%",
         paddingVertical: 13,
         paddingHorizontal: 20,
@@ -13,11 +15,10 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
     },
     label: {
-        fontFamily: "Roboto-Regular",
+        fontFamily: Fonts.medium,
         fontSize: 16,
         textAlign: "center",
         letterSpacing: 0.7,
-        fontWeight: "500",
         lineHeight: 22,
         paddingLeft: 22,
         flex: 2
