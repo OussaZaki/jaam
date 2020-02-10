@@ -2,7 +2,6 @@
 import * as debugAgent from "@google-cloud/debug-agent";
 if (process.env.NODE_ENV === "production") debugAgent.start();
 
-
 /* App starts here */
 import express, { Response, Request } from "express";
 import cors from "cors";
@@ -13,17 +12,16 @@ import { refreshToken, auth } from "./services/spotify";
 
 dotenv.config();
 const PORT = Number(process.env.PORT) || 8080;
-const app = express()
+const app = express();
 
-app.use(bodyParser.json())
-  .use(cors());
+app.use(bodyParser.json()).use(cors());
 
 app.get("/ping", (_req: Request, res: Response) => {
-  res.send("🎵 Hello Jaam! 🎵")
+  res.send("🎵 Hello Jaam! 🎵");
 });
 
-app.post('/auth', auth);
-app.post('/refresh_token', refreshToken);
+app.post("/auth", auth);
+app.post("/refresh_token", refreshToken);
 
 app.listen(PORT, () => {
   // tslint:disable-next-line

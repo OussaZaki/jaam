@@ -12,5 +12,3 @@ insert_final_newline = true
 [*.md]
 trim_trailing_whitespace = false
 
-[clients/src/translations/languages/*.json]
-insert_final_newline = false

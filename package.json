@@ -12,8 +12,6 @@
     "typescript": "^3.5.2"
   },
   "packages": [
-    "clients/*",
-    "services/*",
-    "cli/*"
+    "packages/*"
   ]
 }

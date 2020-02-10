@@ -1,7 +1,7 @@
 {
-  "name": "jaam-node",
+  "name": "@jaam/sdk",
   "version": "0.1.0",
-  "description": "pure node to test jaam logic",
+  "description": "Javascript SDK for Jaam API",
   "type": "module",
   "main": "index.mjs",
   "license": "MIT",
