@@ -1,5 +1,5 @@
-import * as React from 'react';
-import { SvgXml } from 'react-native-svg';
+import * as React from "react";
+import { SvgXml } from "react-native-svg";
 
 const xml = `
 <svg xmlns="http://www.w3.org/2000/svg" height="168px" width="168px" version="1.1" viewBox="0 0 168 168">
@@ -7,6 +7,8 @@ const xml = `
 </svg>
 `;
 
-export const SpotifyIcon: React.SFC = () => <SvgXml xml={xml} width="22px" height="22px"/>;
+export const SpotifyIcon: React.SFC = () => (
+  <SvgXml xml={xml} width="22px" height="22px" />
+);
 
 export default SpotifyIcon;

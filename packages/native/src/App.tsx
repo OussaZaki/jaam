@@ -1,7 +1,6 @@
-import React from 'react';
-import LoginScreen from './screens/Login';
-import PlaylistsScreen from './screens/Playlists';
-
+import React from "react";
+import LoginScreen from "./screens/Login";
+// import PlaylistsScreen from "./screens/Playlists";
 
 const App = () => {
   return (
@@ -10,6 +9,6 @@ const App = () => {
       {/* <PlaylistsScreen /> */}
     </>
   );
-}
+};
 
 export default App;

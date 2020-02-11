@@ -7,7 +7,7 @@
 
 module.exports = {
   resolver: {
-    assetExts: ['mp4', 'png', 'json']
+    assetExts: ["mp4", "png", "json"],
   },
   transformer: {
     getTransformOptions: async () => ({
@@ -16,5 +16,5 @@ module.exports = {
         inlineRequires: false,
       },
     }),
-  }
+  },
 };
