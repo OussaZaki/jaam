@@ -1,15 +1,14 @@
 {
   // "extends": "../tsconfig.json",
+  /** INFO: RN's tsconfig is way different from a cloud function tsconfig.
+   * I might be wrong tho, just lazy to compare and abstract a global tsconfig.
+   * Anyhow here we go
+   **/
   "compilerOptions": {
     "allowJs": true,
     "baseUrl": ".",
     "esModuleInterop": true,
-    "lib": [
-      "dom",
-      "es2015",
-      "es2016",
-      "es2017"
-    ],
+    "lib": ["dom", "es2015", "es2016", "es2017"],
     "module": "commonjs",
     "moduleResolution": "node",
     "noImplicitAny": true,

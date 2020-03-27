@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
 
 const LoginScreen: React.SFC = () => {
   const [isAppReady, setIsAppReady] = useState(false);
+
   useEffect(() => {
-    console.log("Hiding");
     if (isAppReady) {
       SplashScreen.hide();
     }
@@ -55,6 +55,7 @@ const LoginScreen: React.SFC = () => {
   const onPress = () => {
     setIsAppReady(!isAppReady);
   };
+  
   // const _bootstrap = async () => {
   //     // Bootsrap what needs to be bootsrapped.
   // };
